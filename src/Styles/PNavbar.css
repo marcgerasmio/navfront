@@ -1,0 +1,32 @@
+
+.sidebar{
+    background-color: #14183c !important;
+}
+
+.sidebar-logo{
+    filter: brightness(0) invert(1);
+}
+
+.my-offcanvas {
+    max-width: 350px !important;
+}
+
+.custom-toggle{
+    color: white;
+    text-decoration: none;
+}
+
+.custom-offcanvas .offcanvas-header,
+.custom-offcanvas .offcanvas-body {
+    background-color: #14183c;
+}
+
+.custom-offcanvas .offcanvas-body a,
+.offcanvas-header{
+    color: white;
+    font-weight: bold;
+}
+
+.black-text {
+    color: black !important;
+}

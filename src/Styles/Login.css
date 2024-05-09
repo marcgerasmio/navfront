@@ -1,0 +1,25 @@
+
+.navbar{
+    background-color: #14183c;
+ }
+
+ .card-login{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+ }
+
+ .login-button{
+    background-color: #14183c !important;
+    border-color: #14183c !important;
+ }
+
+ .login-button:active{
+    opacity: 0.75;
+ }
+
+ .card-active:active,
+ .card-active:focus 
+ {
+    border-color: #14183c;
+    background-color: #14183c;
+    color: white;
+ }

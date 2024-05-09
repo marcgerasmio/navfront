@@ -1,0 +1,245 @@
+
+.login-card{
+    padding: 20px 20px;
+    border: none !important;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 20px;
+}
+
+.login-image{
+    width: 100%;
+    height: auto;
+}
+
+.login-logo{
+    width: 200px;
+}
+
+.login-nav{
+    background-color: #14183c;
+}
+
+.login-background{
+    background-color: #f0f2f5;
+}
+
+.login-button{
+    background-color: #14183c !important;
+    border-color: #14183c !important;
+}
+
+.login-button:active{
+    opacity: 0.75;
+}
+
+.card-active:active,
+.card-active:focus
+{
+    border-color: #14183c;
+    background-color: #14183c;
+    color: white;
+}
+
+.sidebar{
+    display: flex;
+    height: 100%;
+}
+
+.sidebar-text{
+    color: #fff;
+    background-color: #14183c;
+}
+
+.sidebar-logo{
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-menu:hover{
+    background-color: #fff;
+}
+
+.sidebar-menu:active{
+    opacity: 0.50;
+}
+
+.sidebar-menu-text:hover{
+    color: black;
+}
+
+.navi-logo{
+    width: 30px;
+    margin-right: 5px;
+    filter: brightness(0) invert(1);
+}
+
+.card-register{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    width: 100%;
+    height: auto;
+}
+
+.profile-register{
+    width: 280px !important;
+    height: 280px !important;
+}
+
+.card-register {
+    transition: background-color 0.3s ease; 
+}
+
+.card-register:hover {
+    background-color: #14183c; 
+}
+
+.image-register {
+    transition: filter 0.3s ease;
+}
+
+.card-register:hover .image-register {
+    filter: brightness(0) invert(1);
+}
+
+.card-register:active .image-register{
+    opacity: 0.25;
+}
+
+.cardfooter:hover{
+    color: white;
+}
+
+.image-register{
+    width: 400px;
+    height: 400px;
+}
+
+.card-create{
+    width: 40rem;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.card-competition{
+    width: 60rem;
+    padding: 10px;
+    border-radius: 20px;
+}
+.btn-register-save{
+    background-color: #14183c !important;
+    border-color: #14183c !important;
+    height: 55px !important;
+    width: 200px;
+}
+
+.btn-register-save:hover{
+    opacity: 9
+}
+
+.btn-register{
+    background-color: #14183c !important;
+    border-color: #14183c !important;
+}
+
+.btn-register:active{
+    opacity: 0.50;
+}
+
+.btn-register-save:active{
+    opacity: 0.75;
+}
+
+.image-team{
+    width: 170px !important;
+    height: 170px !important;
+}
+
+.image-member{
+    width: 170px !important;
+    height: 170px !important;
+}
+
+.card-team-register{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    width: 20rem;
+    height: 350px !important;
+}
+
+.card-incubatees{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    padding: 20px 20px;
+    cursor: pointer;
+}
+
+.incubatees-logo{
+    height: 200px;
+    object-fit: contain;
+}
+
+/* .activeClicked {
+    background-color: #f0f0f0; 
+    color: #000; 
+} */
+
+.parent-div{
+    width: 80%;
+}
+
+.team-name{
+    border: none !important;
+    width: 40%;
+}
+
+.card-member{
+    width: 22rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.dash{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.label{
+    color: #14183c;
+    font-family: "Source Sans Pro", Helvetica, Arial, sans-serif !important;
+}
+
+.div{
+    position: relative;
+}
+
+.div:before{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    width: 115px;
+    background-color: #0447B0;
+}
+.profile .mini-container {
+    display:grid;
+    grid-gap:30px;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+
+
+.notification-bell {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .notification-badge {
+    position: absolute;
+    top: -1px;
+    right: -3px;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 10px;
+  }
