@@ -10,14 +10,11 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Spinner from 'react-bootstrap/Spinner';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
-import { PiChalkboardTeacherFill } from "react-icons/pi";
-import { PiStudentFill } from "react-icons/pi";
-import { RiTeamFill } from "react-icons/ri";
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import '../Styles/App.css';
 
-function Login() {
+function ALogin() {
     const [validated, setValidated] = useState(false);
     const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState('');
@@ -69,14 +66,7 @@ function Login() {
             });
             
             const data = await response.json();
-            console.log(data);
-            console.log(data.user.role_id);
-            const rid = parseInt(userType);
-            
-            if (data && data.user.role_id === rid) {
-                const role = parseInt(userType);
-                console.log(role);
-                console.log(data.user.role_id);
+        
                 const id = data.user.id;
                 sessionStorage.setItem("id", id);
                 console.log(id);
@@ -85,33 +75,17 @@ function Login() {
                 console.log(name);
                 showToastMessage();
                 setTimeout(() => {
-                    redirect(role);
+              navigate("/adashboard");
                 }, 1500);
                 setErrorMessage('');
-            } else {
-                showerr();
-                setLoading(false);
-            }
         } catch (error) {
             showerror();
             setLoading(false);
-            console.error('Error fetching data:', error);
+            console.error('Login Error', error);
         }
     };
 
-    const redirect = (role) => {
-        const rl = role.toString();
-        console.log(rl);
-        if (rl === '1') {
-            navigate("/pdashboard");
-        }
-        else if (rl === '2') {
-            navigate("/madddate");
-        }
-        else {
-            navigate("/idashboard");
-        }
-    }
+
 
     const personnelRole = () => {
         setUserType('1');
@@ -147,35 +121,9 @@ function Login() {
                         <Card className={`mt-2 p-md-4 card-login`}>
                             <Card.Body>
                                 <p className="text-muted">
-                                    Login as :&nbsp;&nbsp; 
+                                    ADMIN LOGIN &nbsp;&nbsp; 
                                     <span className='fw-bold'>{role}</span>
                                 </p>
-                                <div className="d-flex flex-wrap justify-content-around mb-3" id='floatLabel'>
-                                    <Card className={'w-25 mb-3 card-active'} onClick={personnelRole}>
-                                        <Card.Body>
-                                            <div>
-                                                <RiTeamFill size={25} />
-                                                <p className="fw-bold d-none d-md-block">Personnel</p>
-                                            </div>
-                                        </Card.Body>
-                                    </Card>
-                                    <Card className={'w-25 mb-3 card-active'} onClick={incubateeRole}>
-                                        <Card.Body>
-                                            <div>
-                                                <PiStudentFill size={25} />
-                                                <p className="fw-bold d-none d-md-block">Incubatee</p>
-                                            </div>
-                                        </Card.Body>
-                                    </Card>
-                                    <Card className={'w-25 mb-3 card-active'} onClick={mentorRole}>
-                                        <Card.Body>
-                                            <div>
-                                                <PiChalkboardTeacherFill size={25} />
-                                                <p className="fw-bold d-none d-md-block">Mentor</p>
-                                            </div>
-                                        </Card.Body>
-                                    </Card>
-                                </div>
                                 <Form id="loginForm" noValidate validated={validated}>
                                     <InputGroup className="mb-3 mt-3">
                                         <FloatingLabel controlId="floatingInput" label="Email address">
@@ -240,4 +188,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default ALogin;

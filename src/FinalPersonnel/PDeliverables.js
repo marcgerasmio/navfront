@@ -60,7 +60,7 @@ function PDeliverables() {
       milestones.forEach(milestone => {
         const milestoneTopics = topics.filter(topic => topic.milestone_id === milestone.milestone_id);
         const milestoneSubmissions = submissions.filter(submission =>
-          milestoneTopics.some(topic => topic.topic_id === submission.topic_id)
+          milestoneTopics.some(topic => topic.topic_id === submission.topic_id && submission.status === 'approved')
         );
         const percentage = milestoneTopics.length > 0 ?
           (milestoneSubmissions.length / milestoneTopics.length) * 100 : 0;
@@ -76,12 +76,15 @@ function PDeliverables() {
     computeMilestonePercentages();
   }, [milestones, topics, submissions]);
 
-  const overallPercentage = milestones.length > 0 ? (completedMilestonesCount / milestones.length) * 100 : 0;
+  const approvedMilestones = milestones.filter(milestone =>
+    milestonePercentages[milestone.milestone_id] === 100
+  );
+
+  const overallPercentage = milestones.length > 0 ? (approvedMilestones.length / milestones.length) * 100 : 0;
 
   const handleViewClick = (milestoneId) => {
     sessionStorage.setItem('milestone_id', milestoneId);
     navigate("/pviewsubmission");
-    
   };
 
   return (

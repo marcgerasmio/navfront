@@ -14,8 +14,7 @@ import { MdEmojiEvents } from "react-icons/md";
 import { GrSchedule } from "react-icons/gr";
 import { CgCalendarDates } from "react-icons/cg";
 import { FaBell } from "react-icons/fa";
-
-import '../Styles/PNavbar.css';
+import '../Styles/App.css';
 
 function MNavbar() {
     const [show, setShow] = useState(false);
@@ -52,7 +51,7 @@ function MNavbar() {
         </a>
     ));
 
-    const dataCount = mentorDate.length; // Count the number of data
+    const dataCount = mentorDate.length;
 
     const handleShow = () => {
         setShow(true);
@@ -70,7 +69,7 @@ function MNavbar() {
             >
                 <div className="container">
                     <Navbar.Brand>
-                        <NavLink to="/pdashboard">
+                        <NavLink to="#">
                             <div className="d-flex align-items-center gap-2">
                                 <Navbar.Toggle 
                                     aria-controls="offcanvasNavbar" 
@@ -107,14 +106,14 @@ function MNavbar() {
                             <GrSchedule size={20} className="me-1 mb-1" />
                             View Appointments
                         </NavLink>
-                        <NavLink to="/mviewappointment" className="nav-link text-white">
+                        {/* <NavLink to="/mviewappointment" className="nav-link text-white">
                             <div className="position-relative">
                                 <FaBell size={20} className="me-1 mb-1"/>
                                 {dataCount > 0 && (
                                     <div className="notification-circle">{dataCount}</div>
                                 )}
                             </div>
-                        </NavLink>
+                        </NavLink> */}
                     </Nav>
                     <div className="d-lg-block d-none me-3">
                         <Dropdown>
@@ -124,7 +123,7 @@ function MNavbar() {
                                 <FaCaretDown className="ms-1" />
                             </Dropdown.Toggle>
                             <Dropdown.Menu className="custom-dropdown-menu">
-                                <Dropdown.Item href="/ieditprofile">Edit Account</Dropdown.Item>
+                                <Dropdown.Item href="/meditprofile">Edit Account</Dropdown.Item>
                                 <Dropdown.Divider />
                                 <Dropdown.Item href="/">Logout</Dropdown.Item>
                             </Dropdown.Menu>

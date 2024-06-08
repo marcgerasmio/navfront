@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import MNavbar from './MNavbar';
-import { Modal, Button, Form, Table } from 'react-bootstrap';
+import { IoMdAddCircle } from "react-icons/io";
+import { Modal, Button, Form, Table, Container, Card, InputGroup } from 'react-bootstrap';
 
 function MAddDate() {
     const [showAddModal, setShowAddModal] = useState(false);
@@ -31,7 +32,6 @@ function MAddDate() {
 
     const addmentordate = async () => {
         try {
-          // Proceed with submission
           const response = await fetch('http://navigatu.test/api/addmentordate', {
             method: 'POST',
             headers: {
@@ -46,9 +46,7 @@ function MAddDate() {
           const data = response.json();
           console.log(data);
           handleCloseAddModal();
-        
         } catch (error) {
-          // Handle errors
           alert("Submission failed. Please try again.");
           console.error('Error submitting:', error.message);
         }
@@ -56,7 +54,6 @@ function MAddDate() {
 
     const editmentordate = async () => {
         try {
-          // Proceed with submission
           const response = await fetch(`http://navigatu.test/api/updatementordate/${selectedId}`, {
             method: 'PUT',
             headers: {
@@ -71,9 +68,7 @@ function MAddDate() {
           const data = response.json();
           console.log(data);
           handleCloseEditModal();
-        
         } catch (error) {
-          // Handle errors
           alert("Update failed. Please try again.");
           console.error('Error updating:', error.message);
         }
@@ -94,8 +89,8 @@ function MAddDate() {
         console.log(schedule);
         const id = schedule.mentorschedule_id;
         setSelectedId(id);
-        setSelectedDate(new Date(schedule.date)); // Set selected date to the date of the selected row
-        setSelectedTimeSlots(schedule.time); // Set selected time slots to the time of the selected row
+        setSelectedDate(new Date(schedule.date)); 
+        setSelectedTimeSlots(schedule.time); 
         setShowEditModal(true);
     };
 
@@ -111,7 +106,6 @@ function MAddDate() {
     };
 
     const handleTimeSlotChange = timeSlot => {
-        // Toggle selected time slot
         if (selectedTimeSlots.includes(timeSlot)) {
             setSelectedTimeSlots(selectedTimeSlots.replace(timeSlot + ',', ''));
         } else {
@@ -123,21 +117,18 @@ function MAddDate() {
         }
     };
 
-    // Format selected date as YYYY-MM-DD
     const formatSelectedDate = date => {
         if (!date) return '';
         const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0'); // Add leading zero if needed
-        const day = String(date.getDate()).padStart(2, '0'); // Add leading zero if needed
+        const month = String(date.getMonth() + 1).padStart(2, '0'); 
+        const day = String(date.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
     };
 
-    // Format selected time slots as [08:00-09:00, 9:00-10:00]
     const formatSelectedTimeSlots = () => {
         return selectedTimeSlots;
     };
 
-    // Array of time slots
     const timeSlots = [
         '8:00-9:00',
         '9:00-10:00',
@@ -152,28 +143,59 @@ function MAddDate() {
     return (
         <>
             <MNavbar />
-            <Button variant="primary" onClick={handleOpenAddModal}>
-                Add Available Date
-            </Button>
+            <Container className='d-flex justify-content-between mt-5 mb-4'>
+                <h3 className='title-text fw-bold mt-2'>Available Dates</h3>
+                <Button variant="primary" onClick={handleOpenAddModal} className='login-button fw-bold p-2'>
+                    <IoMdAddCircle size={25} className="mb-1 me-1" />
+                        Available Date
+                </Button>
+            </Container>
+            <Container>
+                <Card className='submissions'>
+                    <Card.Body>
+                        <Table striped bordered hover>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {Object.values(mentorDate).map((schedule, index) => (
+                                    <tr key={index}>
+                                        <td>{schedule.date}</td>
+                                        <td>{schedule.time}</td>
+                                        <td><Button variant="primary" onClick={() => handleOpenEditModal(schedule)} className='login-button w-50 fw-bold'>Edit</Button></td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </Table>
+                    </Card.Body>
+                </Card>
+            </Container>
             <Modal show={showAddModal} onHide={handleCloseAddModal}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Add Date</Modal.Title>
+                    <Modal.Title className='title-text fw-bold'>Add Date</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
                         <Form.Group controlId="formDate">
-                            <Form.Label>Date</Form.Label>
                             <Calendar
                                 onChange={handleDateChange}
                                 value={selectedDate}
                                 calendarType="US"
                                 selectRange={false}
+                                className="w-100 mb-2"
                             />
-                            <Form.Control
-                                type="text"
-                                value={formatSelectedDate(selectedDate)}
-                                readOnly
-                            />
+                            <InputGroup className="mb-3">
+                                <InputGroup.Text id="basic-addon1">Selected Date</InputGroup.Text>
+                                <Form.Control
+                                    type="text"
+                                    value={formatSelectedDate(selectedDate)}
+                                    readOnly
+                                />
+                            </InputGroup>
                         </Form.Group>
                         <Form.Group controlId="formTimeSlots">
                             <Form.Label>Time Slots</Form.Label>
@@ -187,44 +209,45 @@ function MAddDate() {
                                 />
                             ))}
                         </Form.Group>
-                        <Form.Group controlId="selectedTime">
-                            <Form.Label>Selected Time</Form.Label>
-                            <Form.Control
-                                type="text"
-                                value={formatSelectedTimeSlots()}
-                                readOnly
-                            />
+                        <Form.Group controlId="selectedTime" className='mt-2'>
+                            <InputGroup>
+                                <InputGroup.Text id="basic-addon1">Selected Time</InputGroup.Text>
+                                <Form.Control
+                                    type="text"
+                                    value={formatSelectedTimeSlots()}
+                                    readOnly
+                                />
+                            </InputGroup>
                         </Form.Group>
                     </Form>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseAddModal}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={addmentordate}>
-                        Save
-                    </Button>
+                <Modal.Footer className='d-flex justify-content-center'>
+                    <Button variant="outline-secondary" onClick={handleCloseAddModal} className='w-25 fw-bold title-text p-3'>Close</Button>
+                    <Button variant="primary" onClick={addmentordate} className='login-button w-25 fw-bold title-text p-3'>Save</Button>
                 </Modal.Footer>
             </Modal>
             <Modal show={showEditModal} onHide={handleCloseEditModal}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Edit Date</Modal.Title>
+                    <Modal.Title className='title-text fw-bold'>Edit Date</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
                         <Form.Group controlId="formDate">
-                            <Form.Label>Date</Form.Label>
                             <Calendar
                                 onChange={handleDateChange}
                                 value={selectedDate}
                                 calendarType="US"
                                 selectRange={false}
+                                className="w-100 mb-2"
                             />
-                            <Form.Control
-                                type="text"
-                                value={formatSelectedDate(selectedDate)}
-                                readOnly
-                            />
+                            <InputGroup>
+                                <InputGroup.Text id="basic-addon1">Selected Date</InputGroup.Text>
+                                <Form.Control
+                                    type="text"
+                                    value={formatSelectedDate(selectedDate)}
+                                    readOnly
+                                />
+                            </InputGroup>
                         </Form.Group>
                         <Form.Group controlId="formTimeSlots">
                             <Form.Label>Time Slots</Form.Label>
@@ -238,43 +261,27 @@ function MAddDate() {
                                 />
                             ))}
                         </Form.Group>
-                        <Form.Group controlId="selectedTime">
-                            <Form.Label>Selected Time</Form.Label>
-                            <Form.Control
-                                type="text"
-                                value={formatSelectedTimeSlots()}
-                                readOnly
-                            />
+                        <Form.Group controlId="selectedTime" className='mt-2'>
+                            <InputGroup>
+                                <InputGroup.Text id="basic-addon1">Selected Time</InputGroup.Text>
+                                <Form.Control
+                                    type="text"
+                                    value={formatSelectedTimeSlots()}
+                                    readOnly
+                                />
+                            </InputGroup>
                         </Form.Group>
                     </Form>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseEditModal}>
+                <Modal.Footer className='d-flex justify-content-center'>
+                    <Button variant="outline-secondary" onClick={handleCloseEditModal} className='w-25 fw-bold title-text p-3'>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={editmentordate}>
+                    <Button variant="primary" onClick={editmentordate} className='login-button w-25 fw-bold title-text p-3'>
                         Save
                     </Button>
                 </Modal.Footer>
             </Modal>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Edit</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {Object.values(mentorDate).map((schedule, index) => (
-                        <tr key={index}>
-                            <td>{schedule.date}</td>
-                            <td>{schedule.time}</td>
-                            <td><Button variant="primary" onClick={() => handleOpenEditModal(schedule)}>Edit</Button></td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
         </>
     );
 }

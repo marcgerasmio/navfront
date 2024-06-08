@@ -13,7 +13,7 @@ import { FaBarsProgress } from "react-icons/fa6";
 import { MdEmojiEvents } from "react-icons/md";
 import '../Styles/App.css';
 
-function PNavbar() {
+function ANavbar() {
     const [show, setShow] = useState(false);
     const [expanded, setExpanded] = useState(false);
 
@@ -52,7 +52,7 @@ function PNavbar() {
             >
                 <div className="container">
                     <Navbar.Brand>
-                        <NavLink to="/pdashboard">
+                        <NavLink to="/idashboard">
                             <div className="d-flex align-items-center gap-2">
                                 <Navbar.Toggle 
                                     aria-controls="offcanvasNavbar" 
@@ -77,37 +77,6 @@ function PNavbar() {
                             </div>
                         </NavLink>
                     </Navbar.Brand>
-                    <Nav
-                        variant="underline"
-                        className="me-auto fw-bold d-lg-flex justify-content-center w-100 d-none d-lg-block gap-2"
-                    >
-                        <NavLink to="/pstartupteams" className="nav-link text-white">
-                            <RiTeamFill size={20} className="me-1 mb-1" />
-                            Startup Teams
-                        </NavLink>
-                        <NavLink to="/ptbicategory" className="nav-link text-white">
-                            <TbCategoryFilled size={20} className="me-1 mb-1" />
-                            TBI Category
-                        </NavLink>
-                        <NavLink to="/pmilestone" className="nav-link text-white">
-                            <FaBarsProgress size={20} className="me-1 mb-1" />
-                            Milestone
-                        </NavLink>
-                        <div className='mt-2'>
-                            <Dropdown>
-                                <Dropdown.Toggle as={CustomToggle} id="dropdown-basic">
-                                    <MdEmojiEvents size={22} className="me-1" />
-                                    <span className="text-white fw-bold">Events</span>
-                                    <FaCaretDown className="ms-1" />
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu>
-                                    <Dropdown.Item href="/pseedfunding">Seed Funding</Dropdown.Item>
-                                    <Dropdown.Divider />
-                                    <Dropdown.Item href="/pcompetition">Competition</Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </div>
-                    </Nav>
                     <div className="d-lg-none">
                         <Offcanvas 
                             show={show} 
@@ -139,10 +108,9 @@ function PNavbar() {
                                 <FaCaretDown className="ms-1" />
                             </Dropdown.Toggle>
                             <Dropdown.Menu className="custom-dropdown-menu">
-                                <Dropdown.Item href="/pcreateaccount">Create Account</Dropdown.Item>
-                                <Dropdown.Item href="/peditprofile">Edit Account</Dropdown.Item>
+                            <Dropdown.Item href="/adashboard">Create Account</Dropdown.Item>
                                 <Dropdown.Divider />
-                                <Dropdown.Item href="/">Logout</Dropdown.Item>
+                                <Dropdown.Item href="/admin">Logout</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                     </div>
@@ -152,4 +120,4 @@ function PNavbar() {
     );
 }
 
-export default PNavbar;
+export default ANavbar;

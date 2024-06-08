@@ -11,7 +11,7 @@ import { RiTeamFill } from "react-icons/ri";
 import { TbCategoryFilled } from "react-icons/tb";
 import { FaBarsProgress } from "react-icons/fa6";
 import { MdEmojiEvents } from "react-icons/md";
-import '../Styles/PNavbar.css';
+import '../Styles/App.css';
 
 function INavbar() {
     const [show, setShow] = useState(false);

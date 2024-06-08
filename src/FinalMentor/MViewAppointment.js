@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button, Modal, Form } from "react-bootstrap";
+import { Table, Button, Modal, Form, Container, Card, InputGroup } from "react-bootstrap";
+import MNavbar from './MNavbar';
 
 function MViewAppointment() {
     const [mentorschedule, setMentorSchedule] = useState(null);
@@ -45,15 +46,13 @@ function MViewAppointment() {
 
 
     const sortScheduleByNearestDate = (scheduleData) => {
-        const currentDate = new Date();
         return scheduleData.slice().sort((a, b) => {
-            const dateA = new Date(a.year, a.month, a.date);
-            const dateB = new Date(b.year, b.month - 1 + 1, b.date);
-            const diffA = Math.abs(dateA - currentDate);
-            const diffB = Math.abs(dateB - currentDate);
-            return diffA - diffB;
+            const dateA = new Date(a.date);
+            const dateB = new Date(b.date);
+            return dateA - dateB;
         });
     };
+    
 
     function getTeamName(teamId) {
         if (teamNames === null) {
@@ -126,65 +125,99 @@ function MViewAppointment() {
 
     return (
         <>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Team Name</th>
-                        <th>Time</th>
-                        <th>Status</th>
-                        <th>Remarks</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {mentorschedule && mentorschedule.map((scheduleItem, index) => (
-                        <tr key={index}>
-                            <td>{formatDate(scheduleItem.date)}</td>
-                            <td>{getTeamName(scheduleItem.team_id)}</td>
-                            <td>{scheduleItem.time}</td>
-                            <td>{scheduleItem.status}</td>
-                            <td>{scheduleItem.remarks}</td>
-                            <td>
-                                <Button onClick={() => handleEdit(scheduleItem)}>Edit</Button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
+            <MNavbar />
+            <Container>
+                <Container className="d-flex justify-content-center mt-4">
+                    <h2 className="title-text fw-bold">My Appointments</h2>
+                </Container>
+                <Card className="submissions mt-3 mb-5">
+                    <Card.Body>
+                        <Table striped bordered hover>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Team Name</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                    <th>Remarks</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {mentorschedule && mentorschedule.map((scheduleItem, index) => (
+                                    <tr key={index}>
+                                        <td>{formatDate(scheduleItem.date)}</td>
+                                        <td>{getTeamName(scheduleItem.team_id)}</td>
+                                        <td>{scheduleItem.time}</td>
+                                        <td>{scheduleItem.status}</td>
+                                        <td>{scheduleItem.remarks}</td>
+                                        <td>
+                                            <Button onClick={() => handleEdit(scheduleItem)} className="login-button fw-bold w-50">Edit</Button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </Table>
+                    </Card.Body>
+                </Card>
+            </Container>
 
-            {/* Modal to display scheduling details */}
             <Modal show={showModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Scheduling Details</Modal.Title>
+                    <Modal.Title className="title-text fw-bold">Scheduling Details</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {selectedSchedule && (
-                        <div>
-                             <p>Scheduled Team: {getTeamName(selectedSchedule.team_id)}</p>
-                            <p>Date: {formatDate(selectedSchedule.date)}</p>
-                            <p>Time: {selectedSchedule.time}</p>
-                            <Form.Group controlId="editedStatus">
-                                <Form.Label>Status</Form.Label>
+                        <>
+                            <InputGroup className="mb-2">
+                                <InputGroup.Text id="basic-addon1" className="title-text">Scheduled Team</InputGroup.Text>
+                                <Form.Control
+                                    type="text"
+                                    value={getTeamName(selectedSchedule.team_id)}
+                                    readOnly
+                                />
+                            </InputGroup>
+                            <InputGroup className="mb-2">
+                                <InputGroup.Text id="basic-addon1" className="title-text">Scheduled Date</InputGroup.Text>
+                                <Form.Control
+                                    type="text"
+                                    value={formatDate(selectedSchedule.date)}
+                                    readOnly
+                                />
+                            </InputGroup>
+                            <InputGroup className="mb-2">
+                                <InputGroup.Text id="basic-addon1" className="title-text">Scheduled Time</InputGroup.Text>
+                                <Form.Control
+                                    type="text"
+                                    value={selectedSchedule.time}
+                                    readOnly
+                                />
+                            </InputGroup>
+                            <InputGroup className="mb-2">
+                                <InputGroup.Text id="basic-addon1" className="title-text">Status</InputGroup.Text>
                                 <Form.Control as="select" value={editedStatus} onChange={handleStatusChange}>
                                     <option value="Pending">Pending</option>
                                     <option value="Rejected">Rejected</option>
                                     <option value="Approved">Approved</option>  
-                                    </Form.Control>
-                            </Form.Group>
-                            <Form.Group controlId="editedRemarks">
-                                <Form.Label>Remarks</Form.Label>
-                                <Form.Control type="text" value={editedRemarks} onChange={handleRemarksChange} />
-                            </Form.Group>
-                        </div>
+                                </Form.Control>
+                            </InputGroup>
+                            <InputGroup>
+                                <InputGroup.Text id="basic-addon1" className="title-text">Remarks</InputGroup.Text>
+                                <Form.Control
+                                    type="text"
+                                    value={editedRemarks} 
+                                    onChange={handleRemarksChange}
+                                />
+                            </InputGroup>
+                        </>
                     )}
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseModal}>
+                <Modal.Footer className="d-flex justify-content-center">
+                    <Button variant="outline-secondary" onClick={handleCloseModal} className="title-text fw-bold p-3 w-25">
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleSaveChanges}>
-                        Save Changes
+                    <Button variant="primary" onClick={handleSaveChanges} className="login-button title-text fw-bold p-3 w-25">
+                        Save
                     </Button>
                 </Modal.Footer>
             </Modal>

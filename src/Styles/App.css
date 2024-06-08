@@ -175,14 +175,7 @@
     object-fit: contain;
 }
 
-/* .activeClicked {
-    background-color: #f0f0f0; 
-    color: #000; 
-} */
-
-.parent-div{
-    width: 80%;
-}
+.parent-div{width: 80%;}
 
 .team-name{
     border: none !important;
@@ -216,20 +209,19 @@
     width: 115px;
     background-color: #0447B0;
 }
+
 .profile .mini-container {
     display:grid;
     grid-gap:30px;
     grid-template-columns: repeat(2, 1fr);
 }
 
-
-
 .notification-bell {
     position: relative;
     display: inline-block;
-  }
+}
   
-  .notification-badge {
+.notification-badge {
     position: absolute;
     top: -1px;
     right: -3px;
@@ -242,4 +234,168 @@
     align-items: center;
     color: white;
     font-size: 10px;
-  }
+}
+
+.calendar-container {
+    font-family: Arial, sans-serif;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+  
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+  
+.calendar-cell {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+  
+.calendar-cell.selected {
+    background-color: #007bff;
+    color: #fff;
+}
+  
+  
+.navbar{background-color: #14183c;}
+
+.card-login{box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;}
+
+.login-button{
+    background-color: #14183c !important;
+    border-color: #14183c !important;
+}
+
+.login-button:active{opacity: 0.75;}
+
+.card-active:active,
+.card-active:focus {
+    border-color: #14183c;
+    background-color: #14183c;
+    color: white;
+}
+
+     
+.card-hover:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.card-hover{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.card-image{
+    width: 300px;
+    height: 300px;
+}
+
+.see-button{
+    background-color: #14183c !important;
+    width: 160px;
+    border-color: #14183c !important;
+}
+
+.see-button:hover{
+    background-color: #14183c !important;
+    opacity: 0.75;
+}
+
+.see-button:active{
+    background-color: #14183c !important;
+    opacity: 0.50;
+}
+
+.box{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    width: 19rem;
+}
+
+@media only screen and (max-width: 700px) {
+    .card-container {
+        width: 100%;
+    }
+    .card-image {
+        height: auto; 
+        width: 100%;
+    }
+}
+
+.title-text{
+    font-family: sans-serif;
+    letter-spacing: 0.05em;
+}
+
+.milestone:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.milestone{
+    width: 21rem;
+    padding: 20px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.sidebar{
+    background-color: #14183c !important;
+}
+
+.sidebar-logo{
+    filter: brightness(0) invert(1);
+}
+
+.my-offcanvas {
+    max-width: 350px !important;
+}
+
+.custom-toggle{
+    color: white;
+    text-decoration: none;
+}
+
+.custom-offcanvas .offcanvas-header,
+.custom-offcanvas .offcanvas-body {
+    background-color: #14183c;
+}
+
+.custom-offcanvas .offcanvas-body a,
+.offcanvas-header{
+    color: white;
+    font-weight: bold;
+}
+
+.black-text {
+    color: black !important;
+}
+
+.team-card{
+    width: 21rem;
+    padding: 20px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.team-card:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.team-members{
+    width: 22rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.team{
+    margin: 0;
+    width: 80%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.submissions{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}

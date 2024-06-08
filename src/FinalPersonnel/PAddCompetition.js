@@ -22,9 +22,26 @@ const PAddCompetition = () => {
 
     const handleChange = (e) => {
         if (e.target.type === 'file') {
+            const file = e.target.files[0];
+            const allowedTypes = ['image/jpeg', 'image/png'];
+            const imageType = file.type;
+            const isWebP = imageType === 'image/webp';
+    
+            if (isWebP) {
+                alert('WebP images are not allowed. Please upload a JPG or PNG image.');
+                e.target.value = ''; // Clear the file input
+                return;
+            }
+    
+            if (!allowedTypes.includes(imageType)) {
+                alert('Please upload a JPG or PNG image.');
+                e.target.value = ''; // Clear the file input
+                return;
+            }
+    
             setFormData(prevState => ({
                 ...prevState,
-                image_path: e.target.files[0] // Store file object
+                image_path: file
             }));
         } else {
             const { name, value } = e.target;
@@ -34,6 +51,7 @@ const PAddCompetition = () => {
             }));
         }
     };
+    
 
     const handleSaveChanges = async () => {
         try {

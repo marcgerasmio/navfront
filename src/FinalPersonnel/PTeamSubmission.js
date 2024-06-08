@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Modal, Button, Form, Container, FloatingLabel } from 'react-bootstrap';
+import { Table, Modal, Button, Form, Container, FloatingLabel, Card } from 'react-bootstrap';
 import { TbEdit } from "react-icons/tb";
 import PNavbar from './PNavbar.js';
 
@@ -8,8 +8,8 @@ function PTeamSubmission() {
   const milestoneid = sessionStorage.getItem("milestone_id");
   const [submissions, setSubmissions] = useState([]);
   const [topics, setTopics] = useState([]);
-  const [showEditModal, setShowEditModal] = useState(false); // State for showing edit modal
-  const [selectedSubmission, setSelectedSubmission] = useState(null); // State for selected submission
+  const [showEditModal, setShowEditModal] = useState(false); 
+  const [selectedSubmission, setSelectedSubmission] = useState(null); 
   const [submissionLink, setSubmissionLink] = useState("");
   const [status, setStatus] = useState("");
   const [comment, setComment] = useState("");
@@ -41,7 +41,6 @@ function PTeamSubmission() {
     fetchTopics();
   }, []);
 
-  // Function to find submission details for a given topic
   const findSubmissionDetails = (topic) => {
     return submissions.find(submission => submission.topic_id === topic.topic_id) || {
       submission_link: "",
@@ -50,7 +49,6 @@ function PTeamSubmission() {
     };
   };
 
-  // Function to handle opening the edit modal
   const handleEditModalOpen = (submission) => {
     setSelectedSubmission(submission);
     setSubmissionLink(submission.submission_link);
@@ -59,7 +57,6 @@ function PTeamSubmission() {
     setShowEditModal(true);
   };
 
-  // Function to handle closing the edit modal
   const handleEditModalClose = () => {
     setShowEditModal(false);
     setSelectedSubmission(null);
@@ -68,7 +65,6 @@ function PTeamSubmission() {
     setComment("");
   };
 
-  // Function to handle submission updates
   const handleSubmissionUpdate = async () => {
     try {
       const response = await fetch(`http://navigatu.test/api/updatesubmission/${selectedSubmission.submission_id}`, {
@@ -85,9 +81,7 @@ function PTeamSubmission() {
           comment: comment,
         }),
       });
-      // Refetch submissions to update the list
       fetchSubmissions();
-      // Close the modal after successful submission
       handleEditModalClose();
     } catch (error) {
       console.error('Error updating submission:', error);
@@ -101,38 +95,44 @@ function PTeamSubmission() {
         <h1 className="title-text mt-5 mb-4">Submissions</h1>
       </Container>
       <Container>
-        <Table bordered hover>
-          <thead className="card-header">
-            <tr>
-              <th>Topic Name</th>
-              <th>Submission Link</th>
-              <th>Status</th>
-              <th>Comment</th>
-              <th>Edit</th>
-            </tr>
-          </thead>
-          <tbody>
-            {topics.map(topic => {
-              const submissionDetails = findSubmissionDetails(topic);
-              return (
-                <tr key={topic.topic_id}>
-                  <td>{topic.topic_name}</td>
-                  <td>{submissionDetails.submission_link}</td>
-                  <td>{submissionDetails.status}</td>
-                  <td>{submissionDetails.comment}</td>
-                  <td>
-                    <Button onClick={() => handleEditModalOpen(submissionDetails)} className="login-button">
-                      <TbEdit />
-                    </Button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
+        <Card className="submissions">
+          <Card.Body>
+            <Table bordered hover>
+            <thead className="card-header">
+              <tr>
+                <th>Topic Name</th>
+                <th>Submission Link</th>
+                <th>Status</th>
+                <th>Comment</th>
+                <th>Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+              {topics.map(topic => {
+                const submissionDetails = findSubmissionDetails(topic);
+                const isSubmissionNull = submissionDetails.submission_link === "" && submissionDetails.status === "" && submissionDetails.comment === "";
+                return (
+                  <tr key={topic.topic_id}>
+                    <td>{topic.topic_name}</td>
+                    <td>{submissionDetails.submission_link}</td>
+                    <td>{submissionDetails.status}</td>
+                    <td>{submissionDetails.comment}</td>
+                    <td>
+                      {!isSubmissionNull && (
+                        <Button onClick={() => handleEditModalOpen(submissionDetails)} className="login-button">
+                          <TbEdit />
+                        </Button>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+            </Table>
+          </Card.Body>
+        </Card>
       </Container>
 
-      {/* Edit modal */}
       <Modal show={showEditModal} onHide={handleEditModalClose}>
         <Modal.Header>
           <Modal.Title className="fw-bold title-text">Edit Submission</Modal.Title>
@@ -157,7 +157,6 @@ function PTeamSubmission() {
               </Form.Control>
             </FloatingLabel>
           </Form.Group>
-
           <Form.Group controlId="commentInput" className="mb-3">
             <FloatingLabel controlId="commentInput" label="Comment">
               <Form.Control as="textarea" value={comment} onChange={(e) => setComment(e.target.value)} placeholder="" />

@@ -208,13 +208,13 @@ function ITeamMembers() {
                 ))}
             </div>
             <Container className="d-flex justify-content-center mt-5 gap-3">
-                <Button 
+                {/* <Button 
                     variant="outline-danger" 
                     className="fw-bold p-3"
                 >
                     <RiDeleteBin5Fill size={27} className="mb-1" />
                     Remove
-                </Button>
+                </Button> */}
                 <Button 
                     variant="primary" 
                     onClick={() => setShowAddModal(true)}

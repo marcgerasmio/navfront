@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, Row, Col, Container } from "react-bootstrap";
 import PNavbar from './PNavbar.js';
-import '../Styles/PTeamMembers.css';
+import '../Styles/App.css';
 
 function TeamMembers() {
     const [teamData, setTeamData] = useState(null);
@@ -38,7 +38,7 @@ function TeamMembers() {
     return (
         <>
             <PNavbar />
-            <div className="p-5">
+                <div className="p-4">
                     {teamData && teamData.map((team) => (
                         <Container className="d-flex justify-content-center mt-2">
                             <Card key={team.team_id} className="p-3 team">
@@ -56,12 +56,7 @@ function TeamMembers() {
                                             <Card.Text className='fw-bold fs-1'>{team.team_name}</Card.Text>
                                         </Card.Body>
                                         <div>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex 
-                                            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate 
-                                            velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat 
-                                            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                          {team.product_details}
                                         </div>
                                     </Col>
                                 </Row>
@@ -70,7 +65,7 @@ function TeamMembers() {
                     ))}
                 </div>
 
-                <Container className="gap-5 d-flex flex-wrap justify-content-center">
+                <Container className="gap-3 d-flex flex-wrap justify-content-center">
                     {membersData && membersData.map((member) => (
                         <div>
                             <Card key={member.member_id} className="team-members">

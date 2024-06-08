@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import { useEffect, useState } from 'react';
 import { IoMdAddCircle } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import '../Styles/PDashboard.css';
+import '../Styles/App.css';
 
 function PCompetition() {
     const [competitionData, setCompetitionData] = useState(null);
@@ -79,22 +79,18 @@ function PCompetition() {
     const formatDeadline = (deadline) => {
         if (!deadline) {
             console.error("Deadline is undefined or null");
-            return "N/A"; // Or handle it as per your requirement
+            return "N/A"; 
         }
-    
         const dateParts = deadline.split("-");
         if (dateParts.length !== 3) {
             console.error("Invalid deadline format:", deadline);
-            return "Invalid Deadline"; // Or handle it as per your requirement
+            return "Invalid Deadline";
         }
-    
         const monthIndex = parseInt(dateParts[1]) - 1;
         const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    
-        // Add more error handling as needed
-    
         return `${months[monthIndex]} ${parseInt(dateParts[2])}, ${dateParts[0]}`;
     };  
+
     const sortedCompetitions = competitionData ? competitionData.slice().sort((a, b) => {
         const daysLeftA = daysLeft(a.date_submission);
         const daysLeftB = daysLeft(b.date_submission);
@@ -114,8 +110,9 @@ function PCompetition() {
     return(
         <>
             <PNavbar />
-            <Container>
-                <div className="d-flex justify-content-end mt-3">
+            <Container className='mb-4'>
+                <div className="d-flex justify-content-between align-items-center mt-3">
+                    <h1 className='title-text text-center mt-2'>Startup Competitions</h1>
                     <Button 
                         onClick={addCompetition} 
                         className="mt-3 btn-register-save fw-bold"

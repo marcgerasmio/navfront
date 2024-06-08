@@ -8,10 +8,10 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import PNavbar from './PNavbar.js';
+import ANavbar from './ANavbar';
 import "../Styles/App.css";
 
-function RegisterIncubatee() {
+function ARegisterIncubatee() {
     const navigate = useNavigate();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -143,7 +143,7 @@ function RegisterIncubatee() {
 
     return (
         <>
-            <PNavbar />
+            <ANavbar />
             <Container className='d-flex flex-wrap gap-5 justify-content-center mt-3'>
                 <div>
                     <label htmlFor="imageUpload">
@@ -277,4 +277,4 @@ function RegisterIncubatee() {
     );
 }
 
-export default RegisterIncubatee;
+export default ARegisterIncubatee;

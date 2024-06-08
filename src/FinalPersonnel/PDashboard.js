@@ -5,12 +5,11 @@ import Button from 'react-bootstrap/Button';
 import { useEffect, useState } from 'react';
 import { MdNavigateNext } from "react-icons/md";
 import { NavLink } from 'react-router-dom';
-import '../Styles/PDashboard.css';
+import '../Styles/App.css';
 
 function PDashboard() {
     const [competitionData, setCompetitionData] = useState([]);
     const [seedFundingData, setSeedFundingData] = useState([]);
-    // const cardCount = 4;
 
     useEffect(() => {
         const fetchCompetitionData = async () => {
@@ -182,7 +181,7 @@ function PDashboard() {
                     </div>
                 </Container>
                 <Container>
-                    <div className='mt-2'>
+                    <div className='mt-3'>
                         <h1 className='title-text'>Seed Fundings</h1>
                     </div>
                     <div className="d-flex flex-wrap gap-3 mt-4">

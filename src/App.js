@@ -10,7 +10,6 @@ import PEditProfile from './FinalPersonnel/PEditProfile.js';
 import PCompetition from './FinalPersonnel/PCompetition.js';
 import PMilestone from './FinalPersonnel/PMilestone.js';
 import PDeliverables from './FinalPersonnel/PDeliverables.js';
-import PTeamMilestone from './FinalPersonnel/PTeamMilestone.js';
 import PSeedFunding from './FinalPersonnel/PSeedFunding.js';
 import PAddCompetition from './FinalPersonnel/PAddCompetition.js';
 import PAddSeedFunding from './FinalPersonnel/PAddSeedFunding.js';
@@ -23,14 +22,21 @@ import ISeedFunding from './FinalIncubatee/ISeedFunding.js';
 import ITeamMilestone from './FinalIncubatee/ITeamMilestone.js';
 import IEditProfile from './FinalIncubatee/IEditProfile.js';
 import IMentor from './FinalIncubatee/IMentors.js';
-import MDashboard from './FinalMentor/MDashboard.js';
 import MAddDate from './FinalMentor/MAddDate.js';
 import MViewAppointment from './FinalMentor/MViewAppointment.js';
+import MEditProfile from './FinalMentor/MEditProfile.js';
+import ALogin from './Admin/ALogin.js';
+import ADashboard from './Admin/ADashboard.js';
+import ARegisterIncubatee from './Admin/ARegisterIncubatee.js';
+import ARegisterMentor from './Admin/ARegisterMentor.js';
+import ARegisterPersonnel from './Admin/ARegisterPersonnel.js';
+
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Authenticate />} />
+      <Route path="/admin" element={<ALogin />} />
       <Route path="/pdashboard" element={<PDashboard />} />
       <Route path="/pregisterincubatee" element={<PRegisterIncubatee />} />
       <Route path="/pcreateaccount" element={<PCreateAccount />} />
@@ -42,7 +48,6 @@ function App() {
       <Route path="/paddcompetition" element={<PAddCompetition />} />
       <Route path="/pmilestone" element={<PMilestone />} />
       <Route path="/pdeliverables" element={<PDeliverables />} />
-      <Route path="/pteammilestone" element={<PTeamMilestone />} />
       <Route path="/pseedfunding" element={<PSeedFunding />} />
       <Route path="/paddseedfunding" element={<PAddSeedFunding />} />
       <Route path="/ptbicategory" element={<PTbiCategory />} />
@@ -54,9 +59,13 @@ function App() {
       <Route path="/iteammilestone" element={<ITeamMilestone />} />
       <Route path="/ieditprofile" element={<IEditProfile />} />
       <Route path="/imentors" element={<IMentor />} />
-      <Route path="/mdashboard" element={<MDashboard />} />
       <Route path="/madddate" element={<MAddDate />} />
       <Route path="/mviewappointment" element={<MViewAppointment />} />
+      <Route path="/meditprofile" element={<MEditProfile />} />
+      <Route path="/adashboard" element={<ADashboard />} />
+      <Route path="/aregistermentor" element={<ARegisterMentor />} />
+      <Route path="/aregisterincubatee" element={<ARegisterIncubatee />} />
+      <Route path="/aregisterpersonnel" element={<ARegisterPersonnel />} />
     </Routes>
   );
 }

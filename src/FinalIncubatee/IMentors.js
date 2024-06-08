@@ -20,6 +20,24 @@ function IMentor() {
     const [timeInput, setTimeInput] = useState('');
     const [teamSchedule, setTeamSchedule] = useState([]);
     const [modalClosed, setModalClosed] = useState(true);
+    const [teamid, setTeamId] = useState([]);
+    const team_ceo = sessionStorage.getItem('name');
+
+    
+        const fetchTeamId = async () => {
+            try {
+                const response = await fetch(`http://navigatu.test/api/find/${team_ceo}`);
+                const data = await response.json();
+                console.log(data);
+                const team_id = data[0].team_id;
+                setTeamId(team_id);
+                fetchTeamSchedule(team_id);
+               
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+ 
 
     const fetchData = async () => {
         try {
@@ -31,9 +49,9 @@ function IMentor() {
         }
     };
 
-    const fetchTeamSchedule = async () => {
+    const fetchTeamSchedule = async (team_id) => {
         try {
-            const response = await fetch(`http://navigatu.test/api/viewteamschedule/15`);
+            const response = await fetch(`http://navigatu.test/api/viewteamschedule/${team_id}`);
             const data = await response.json();
             const sortedData = sortScheduleByNearestDate(data);
             setTeamSchedule(sortedData);
@@ -44,11 +62,7 @@ function IMentor() {
     };
 
     useEffect(() => {
-        fetchData();
-        fetchTeamSchedule();
-    }, []);
-
-    useEffect(() => {
+        fetchTeamId();      
         fetchData();
     }, []);
     
@@ -125,7 +139,7 @@ function IMentor() {
                 },
                 body: JSON.stringify({
                     mentor_id: selectedMentorId,
-                    team_id: '15',
+                    team_id: '52',
                     date: date,
                     time: timeInput,
                     viewed: 'yes',
@@ -163,7 +177,7 @@ function IMentor() {
             console.log('Schedule submitted successfully');
             setTimeInput('');
             closeModal();
-            fetchTeamSchedule(); 
+            fetchTeamId(); 
         } catch (error) {
             console.error('Error submitting schedule:', error.message);
         }
@@ -231,21 +245,21 @@ function IMentor() {
     return (
         <>
             <INavbar />
-            <div className='mt-5 d-flex justify-content-center'>
-                <h1 className='title-text'>My Appointments</h1>
-            </div>
             <Container>
-                <div className="d-flex justify-content-start mb-2 mt-3">
+                <div className="d-flex justify-content-between align-items-center mt-5 mb-4">
+                    <h1 className='title-text text-center mt-2'>My Appointments</h1>
                     <FloatingLabel controlId="mentorSelect" label="Select Mentor">
-                        <Form.Select onChange={handleSelectChange}>
-                            {mentorData && mentorData.map((mentor) => (
-                                <option key={mentor.id} value={mentor.id}>{mentor.name}</option>
-                            ))}
-                        </Form.Select>
-                    </FloatingLabel>
+    <Form.Select onChange={handleSelectChange} defaultValue="">
+        <option value="" disabled>Select Mentor</option>
+        {mentorData && mentorData.map((mentor) => (
+            <option key={mentor.id} value={mentor.id}>{mentor.name}</option>
+        ))}
+    </Form.Select>
+</FloatingLabel>
+
                 </div>
-                <div className="d-flex gap-3">
-                    <div className="calendar-container mb-4 d-flex justify-content-center box">
+                <Container className="d-flex gap-4">
+                    <Container className="calendar-container d-flex box w-50">
                         <Calendar
                             className="w-100"
                             onChange={onChange}
@@ -253,9 +267,13 @@ function IMentor() {
                             onClickDay={(value) => handleSpecialDateClick(value)}
                             tileContent={tileContent}
                         />
-                    </div>
-                    <Table bordered hover className="mb-4 box">
-                        <thead>
+                    </Container>
+                    <Container 
+                        style={{ maxHeight: '500px', overflowY: 'auto' }}
+                        className="calendar-container box"
+                    >
+                        <Table bordered hover className="">
+                            <thead>
                             <tr>
                                 <th>Date</th>
                                 <th>Mentor</th>
@@ -263,9 +281,10 @@ function IMentor() {
                                 <th>Status</th>
                                 <th>Remarks</th>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {teamSchedule && teamSchedule.map((scheduleItem, index) => (
+                            </thead>
+                            <tbody>
+                            {teamSchedule &&
+                                teamSchedule.map((scheduleItem, index) => (
                                 <tr key={index}>
                                     <td>{scheduleItem.date}</td>
                                     <td>{getMentorName(scheduleItem.mentor_id)}</td>
@@ -273,15 +292,16 @@ function IMentor() {
                                     <td>{scheduleItem.status}</td>
                                     <td>{scheduleItem.remarks}</td>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </Table>
-                </div>
+                                ))}
+                            </tbody>
+                        </Table>
+                    </Container>
+                </Container>
             </Container>
 
             <Modal show={showModal} onHide={closeModal}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Special Event</Modal.Title>
+                    <Modal.Title className="fw-bold title-text">Please Select a Time</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div>
@@ -290,30 +310,29 @@ function IMentor() {
                         <div>
                             <p>Select Time:</p>
                             {specialEvents.map((timeslot, index) => (
-                                <div key={index} style={{ marginBottom: '5px' }}>
-                                {String(timeslot).split(',').map((slot, slotIndex) => (
-                                    <label key={slotIndex}>
-                                        <input
-                                            type="checkbox"
-                                            value={slot.trim()}
-                                            onChange={(e) => handleCheckboxChange(e.target.value)}
-                                        />
-                                        {slot.trim()}
-                                    </label>
-                                ))}
+                                <div key={index}>
+                                    {String(timeslot).split(',').map((slot, slotIndex) => (
+                                        <>
+                                            <label key={slotIndex}>
+                                                <input
+                                                    type="checkbox"
+                                                    value={slot.trim()}
+                                                    onChange={(e) => handleCheckboxChange(e.target.value)}
+                                                />
+                                                {slot.trim()}
+                                            </label>
+                                            <br />
+                                        </>
+                                    ))}
                                 </div>
                             ))}
                         </div>
-                        {timeInput === '' && <p style={{ color: 'red' }}>Please select a time</p>}
+                        {/* {timeInput === '' && <p style={{ color: 'red' }}>Please select a time</p>} */}
                     </div>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={closeModal}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={logScheduleDetails} disabled={timeInput === ''}>
-                        Submit
-                    </Button>
+                <Modal.Footer className="d-flex justify-content-center">
+                    <Button variant="outline-secondary" onClick={closeModal} className="fw-bold p-3 w-25">Close</Button>
+                    <Button variant="primary" onClick={logScheduleDetails} className="login-button fw-bold p-3 w-25">Submit</Button>
                 </Modal.Footer>
             </Modal>
         </>

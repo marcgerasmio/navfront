@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import { useEffect, useState } from 'react';
 import { MdNavigateNext } from "react-icons/md";
 import { NavLink } from 'react-router-dom';
-import '../Styles/PDashboard.css';
+import '../Styles/App.css';
 
 function IDashboard() {
     const [competitionData, setCompetitionData] = useState([]);
@@ -55,7 +55,7 @@ function IDashboard() {
             );
         } else {
             console.error("Invalid date format:", submissionDate);
-            return -1; // Error condition
+            return -1;
         }
         if (currentDate > submissionDateTime) {
             return -1;
@@ -187,7 +187,6 @@ function IDashboard() {
                         <h1 className='title-text'>Seed Fundings</h1>
                     </div>
                     <div className="d-flex flex-wrap gap-3 mt-4">
-                        {/* Render seed funding cards */}
                         {sortedSeedFundingData.slice(0, cardCount).map((seedfunding, index) => (
                             <div key={index} className='card-container'>
                                 <Card className="mb-3 box">
@@ -228,7 +227,7 @@ function IDashboard() {
                             </div>
                         ))}
                     </div>
-                    <div className='d-flex justify-content-center mt-2'>
+                    <div className='d-flex justify-content-center mt-2 mb-5'>
                         <NavLink to="/iseedfunding">
                             <Button className='fw-bold see-button'>
                                 See more

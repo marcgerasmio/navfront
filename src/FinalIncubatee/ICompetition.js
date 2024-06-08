@@ -2,7 +2,7 @@ import INavbar from './INavbar.js';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import { useEffect, useState } from 'react';
-import '../Styles/PDashboard.css';
+import '../Styles/App.css';
 
 function ICompetition() {
     const [competitionData, setCompetitionData] = useState(null);

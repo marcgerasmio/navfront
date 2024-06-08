@@ -1,15 +1,14 @@
 import { Card,Form,Row,Col,Button,FloatingLabel } from 'react-bootstrap';
-import PNavbar from './PNavbar.js';
+import ANavbar from './ANavbar';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import '../App.css';
 
-function RegisterMentor(){
+function ARegisterPersonnel(){
     const role_id = sessionStorage.getItem("role_id");
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phonenumber, setPhoneNumber] = useState('');
-    const [expertise, setExpertise] = useState('');
     const [password, setPassword] = useState(''); 
     const chars = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const passwordLength = 5;
@@ -24,12 +23,12 @@ function RegisterMentor(){
         setPassword(generatedPassword);
     };
     const register = async () => {
-        if (!name || !email || !phonenumber || !expertise || !password) {
+        if (!name || !email || !phonenumber || !password) {
             alert('Please fill in all fields');
             return;
         }
         try {
-            const response = await fetch('http://navigatu.test/api/registermentor', {
+            const response = await fetch('http://navigatu.test/api/registerpersonnel', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -40,12 +39,11 @@ function RegisterMentor(){
                     email,
                     password,
                     role_id: role_id,
-                    expertise,
                     phone_number: phonenumber,
                 }),
             });
             alert('register successfully!');
-            navigate("/pcreateaccount");
+            navigate("/adashboard");
             if (!response.ok) {
                 alert('missing values');
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -57,11 +55,11 @@ function RegisterMentor(){
 
     return(
         <>
-                <PNavbar />
+                <ANavbar />
                 <div className='d-flex p-4 mt-2 gap-5 justify-content-center'>
                     <div>
                         <Card className='card-create'>
-                            <Card.Header className='text-muted'>MENTOR CONTACT DETAILS</Card.Header>
+                            <Card.Header className='text-muted'>PERSONNEL CONTACT DETAILS</Card.Header>
                             <Card.Body>
                                 <Form>
                                     <FloatingLabel label="Full Name" className='mb-3 mt-4'>
@@ -77,14 +75,6 @@ function RegisterMentor(){
                                             placeholder="Email" 
                                             value={email} 
                                             onChange={(e) => setEmail(e.target.value)} 
-                                        />
-                                    </FloatingLabel>
-                                    <FloatingLabel label="Expertise" className='mb-3'>
-                                        <Form.Control 
-                                            type="text" 
-                                            placeholder="Expertise" 
-                                            value={expertise} 
-                                            onChange={(e) => setExpertise(e.target.value)} 
                                         />
                                     </FloatingLabel>
                                     <FloatingLabel label="Phone Number" className='mb-3'>
@@ -126,4 +116,4 @@ function RegisterMentor(){
     );
 }
 
-export default RegisterMentor;
+export default ARegisterPersonnel;

@@ -13,8 +13,6 @@ function PSeedFunding() {
         try {
             const response = await fetch(`http://navigatu.test/api/seedfunding`);
             const data = await response.json();
-    
-            // Reorder seedFundingData placing events with deadlines that have passed at the end
             const currentDate = new Date();
             data.sort((a, b) => {
                 const daysLeftA = daysLeft(a.deadline, currentDate);
@@ -23,17 +21,15 @@ function PSeedFunding() {
                 if (daysLeftB === -1 && daysLeftA !== -1) return -1;
                 return daysLeftA - daysLeftB;
             });
-    
             setSeedFundingData(data);
         } catch (error) {
             console.error("Error fetching seed funding data:", error);
         }
     };
     
-
     useEffect(() => {
         fetchSeedFundingData();
-    }, []); // Run once on component mount
+    }, []); 
 
     const addFunding = () => {
         navigate("/paddseedfunding");
@@ -47,7 +43,6 @@ function PSeedFunding() {
             parseInt(deadlineParts[1]) - 1,
             parseInt(deadlineParts[2])
         );
-    
         if (currentDate > deadlineTime) {
             return -1;
         } else {
@@ -57,7 +52,6 @@ function PSeedFunding() {
         }
     };
     
-
     const getColor = (days) => {
         if (days === -1) {
             return "gray"; 
@@ -80,8 +74,9 @@ function PSeedFunding() {
     return (
         <>
             <PNavbar />
-            <Container>
-                <div className="d-flex justify-content-end mt-3">
+            <Container className='mb-4'>
+                <div className="d-flex justify-content-between align-items-center mt-3">
+                    <h1 className='title-text text-center mt-3'>Seed Fundings</h1>
                     <Button
                         onClick={addFunding}
                         className="mt-3 btn-register-save fw-bold"
@@ -94,7 +89,7 @@ function PSeedFunding() {
                     {seedFundingData.slice(0, cardCount).map((seedfunding, index) => (
                         <div key={index}>
                             <div>
-                                <Card className="mb-3 box" style={{ width: "22rem" }}>
+                                <Card className="mb-3 box">
                                     <Card.Img variant="top" src={seedfunding.image || "dash.jpg"} alt={seedfunding.title} />
                                     <div
                                         className='fw-bold'
@@ -106,13 +101,13 @@ function PSeedFunding() {
                                             color: "white"
                                         }}
                                     >
-                                                                   {daysLeft(seedfunding.deadline) !== -1 ? (
-    <small>
-        {daysLeft(seedfunding.deadline) === 1 ? "1 Day Left" : `${daysLeft(seedfunding.deadline)} Days Left`}
-    </small>
-) : (
-    <small>Event has ended</small>
-)}
+                                        {daysLeft(seedfunding.deadline) !== -1 ? (
+                                            <small>
+                                                {daysLeft(seedfunding.deadline) === 1 ? "1 Day Left" : `${daysLeft(seedfunding.deadline)} Days Left`}
+                                            </small>
+                                        ) : (
+                                            <small>Event has ended</small>
+                                        )}
                                     </div>
                                     <Card.Body>
                                         <Card.Title>{seedfunding.grant_name}</Card.Title>

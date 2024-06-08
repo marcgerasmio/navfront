@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PNavbar from "./PNavbar.js";
 import { Card, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import '../Styles/PMilestone.css';
+import '../Styles/App.css';
 
 function Milestone () {
     const [teamData, setTeamData] = useState(null);

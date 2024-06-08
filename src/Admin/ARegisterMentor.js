@@ -1,10 +1,10 @@
 import { Card,Form,Row,Col,Button,FloatingLabel } from 'react-bootstrap';
-import PNavbar from './PNavbar.js';
+import ANavbar from './ANavbar';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import '../App.css';
 
-function RegisterMentor(){
+function ARegisterMentor(){
     const role_id = sessionStorage.getItem("role_id");
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -57,7 +57,7 @@ function RegisterMentor(){
 
     return(
         <>
-                <PNavbar />
+                <ANavbar />
                 <div className='d-flex p-4 mt-2 gap-5 justify-content-center'>
                     <div>
                         <Card className='card-create'>
@@ -126,4 +126,4 @@ function RegisterMentor(){
     );
 }
 
-export default RegisterMentor;
+export default ARegisterMentor;

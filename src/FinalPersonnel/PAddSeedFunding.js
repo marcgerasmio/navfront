@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button, Card, Row, Col, FloatingLabel, Container } from 'react-bootstrap';
+import { Form, Button, Card, Row, Col, FloatingLabel } from 'react-bootstrap';
 import PNavbar from './PNavbar';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,14 +18,15 @@ function PAddSeedFunding() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        if (name === "deadline") {
-            setFormData({ ...formData, [name]: value });
-        } else {
-            setFormData({ ...formData, [name]: value });
-        }
+        setFormData({ ...formData, [name]: value });
     };
 
     const handleSubmit = async () => {
+        // Check if any field is empty
+        if (Object.values(formData).some(value => value === '')) {
+            alert('Please fill out all fields');
+            return;
+        }
         try {
             const response = await fetch('http://navigatu.test/api/addseedfunding', {
                 method: 'POST',
@@ -69,9 +70,6 @@ function PAddSeedFunding() {
                                                     onChange={handleChange}
                                                     required
                                                 />
-                                                <Form.Control.Feedback type="invalid">
-                                                    Please provide a valid funding agency.
-                                                </Form.Control.Feedback>
                                             </FloatingLabel>
                                             <FloatingLabel label="Grant Name" className='mb-3 mt-4'>
                                                 <Form.Control
@@ -82,9 +80,6 @@ function PAddSeedFunding() {
                                                     onChange={handleChange}
                                                     required
                                                 />
-                                                <Form.Control.Feedback type="invalid">
-                                                    Please provide a valid grant name.
-                                                </Form.Control.Feedback>
                                             </FloatingLabel>
                                             <FloatingLabel label="Budget Allocated" className='mb-3'>
                                                 <Form.Control
@@ -95,9 +90,6 @@ function PAddSeedFunding() {
                                                     onChange={handleChange}
                                                     required
                                                 />
-                                                <Form.Control.Feedback type="invalid">
-                                                    Please provide a valid budget allocated.
-                                                </Form.Control.Feedback>
                                             </FloatingLabel>
                                             <FloatingLabel label="Funding Priorities" className='mb-3 mt-4'>
                                                 <Form.Control
@@ -108,9 +100,6 @@ function PAddSeedFunding() {
                                                     onChange={handleChange}
                                                     required
                                                 />
-                                                <Form.Control.Feedback type="invalid">
-                                                    Please provide valid funding priorities.
-                                                </Form.Control.Feedback>
                                             </FloatingLabel>
                                         </Col>
                                         <Col xs={12} md={6}>
@@ -124,9 +113,6 @@ function PAddSeedFunding() {
                                                     onChange={handleChange}
                                                     required
                                                 />
-                                                <Form.Control.Feedback type="invalid">
-                                                    Please provide a valid funding description.
-                                                </Form.Control.Feedback>
                                             </FloatingLabel>
                                             <FloatingLabel label="Requirements" className='mb-3 mt-4'>
                                                 <Form.Control
@@ -138,9 +124,6 @@ function PAddSeedFunding() {
                                                     onChange={handleChange}
                                                     required
                                                 />
-                                                <Form.Control.Feedback type="invalid">
-                                                    Please provide valid requirements.
-                                                </Form.Control.Feedback>
                                             </FloatingLabel>
                                             <FloatingLabel label="Submission Link" className='mb-3 mt-4'>
                                                 <Form.Control
@@ -151,9 +134,6 @@ function PAddSeedFunding() {
                                                     onChange={handleChange}
                                                     required
                                                 />
-                                                <Form.Control.Feedback type="invalid">
-                                                    Please provide a valid submission link.
-                                                </Form.Control.Feedback>
                                             </FloatingLabel>
                                             <FloatingLabel label="Deadline" className='mb-3'>
                                                 <Form.Control
@@ -164,9 +144,6 @@ function PAddSeedFunding() {
                                                     onChange={handleChange}
                                                     required
                                                 />
-                                                <Form.Control.Feedback type="invalid">
-                                                    Please provide a valid deadline.
-                                                </Form.Control.Feedback>
                                             </FloatingLabel>
                                         </Col>
                                     </Row>
